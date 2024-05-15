@@ -9,7 +9,7 @@ void main() {
       appBar: AppBar(
         title: Text("Study to Container"),
       ),
-      body: Body(),
+      body: HomeWidget(),
     ),
   ));
 }
@@ -334,12 +334,44 @@ class StackAlign extends StatelessWidget {
   }
 }
 
-class Body extends StatelessWidget {
-  const Body({super.key});
+// Constraint
+class HomeWidget extends StatelessWidget {
+  const HomeWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return SafeArea(
+      child: Scaffold(
+        body: ConstraintsWidget(),
+      ),
+    );
   }
 }
+class ConstraintsWidget extends StatelessWidget {
+  const ConstraintsWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 500,
+      width: 500,
+      color: Colors.blue,
+      child: Center(
+        child: Container(
+          constraints: BoxConstraints.tight(Size(200, 200)),
+          color: Colors.red,
+          height: 300,
+          width: 300,
+          child: Container(
+            margin: EdgeInsets.all(10),
+            color: Colors.green,
+            height: 50,
+            width: 50,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 
