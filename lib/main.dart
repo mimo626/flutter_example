@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 
 void main() {
@@ -234,6 +235,55 @@ class FlexibleScroll extends StatelessWidget {
           height: 100,
           color: Colors.red,
           margin: EdgeInsets.symmetric(vertical: 10),
+        ),
+      ],
+    );
+  }
+}
+
+class StackBox extends StatelessWidget {
+  const StackBox({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Container(
+          width: 500,
+          height: 500,
+          color: Colors.red,
+        ),
+        Container(
+          width: 400,
+          height: 400,
+          color: Colors.black,
+        ),
+        Container(
+          width: 300,
+          height: 300,
+          color: Colors.blue,
+        ),
+        Container(
+          width: 200,
+          height: 200,
+          color: Colors.green,
+        ),
+        Positioned(
+          bottom: 10,
+          right: 20,
+          child: Container(
+            width: 100,
+            height: 100,
+            color: Colors.yellow,
+          ),
+        ),
+        Container(
+          width: 300,
+          height: 300,
+          decoration: BoxDecoration(
+            color: Colors.red,
+            borderRadius: BorderRadius.circular(150),          
+          ),
         ),
       ],
     );
