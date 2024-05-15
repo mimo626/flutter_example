@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 
-void main(){
+void main() {
   runApp(MaterialApp(
     home: Scaffold(
-      body: Text("Hello Flutter", style: TextStyle(
-        color: Colors.black
-      ),),
+      body: SafeArea(
+        child: Text(
+          "Hello Flutter",
+          style: TextStyle(color: Colors.black),
+        ),
+      ),
     ),
   ));
 }
