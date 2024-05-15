@@ -241,6 +241,7 @@ class FlexibleScroll extends StatelessWidget {
   }
 }
 
+// Stack 쌓기
 class StackBox extends StatelessWidget {
   const StackBox({super.key});
 
@@ -282,9 +283,52 @@ class StackBox extends StatelessWidget {
           height: 300,
           decoration: BoxDecoration(
             color: Colors.red,
-            borderRadius: BorderRadius.circular(150),          
+            borderRadius: BorderRadius.circular(150),
           ),
         ),
+      ],
+    );
+  }
+}
+
+// Stack, Align사용
+class StackAlign extends StatelessWidget {
+  const StackAlign({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Align(
+          alignment: Alignment.center,
+          child: Container(
+            width: 300,
+            height: 300,
+            decoration: BoxDecoration(
+                color: Colors.red,
+                borderRadius: BorderRadius.circular(150)
+            ),
+          ),
+        ),
+        Align(
+          alignment: Alignment.center,
+          child: Container(
+            width: 280,
+            height: 280,
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(140)
+            ),
+          ),
+        ),
+        Align(
+          alignment: Alignment.center,
+          child: Text(
+            "Count 0",
+            style: TextStyle(fontSize: 30,
+            color: Colors.red),
+          ),
+        )
       ],
     );
   }
