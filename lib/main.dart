@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -50,8 +52,8 @@ class CustomContainer extends StatelessWidget {
 }
 
 // 스크롤
-class Body extends StatelessWidget {
-  const Body({super.key});
+class Scroll extends StatelessWidget {
+  const Scroll({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -138,3 +140,112 @@ class Body extends StatelessWidget {
     );
   }
 }
+
+// Flexible 안에 스크롤뷰
+class FlexibleScroll extends StatelessWidget {
+  const FlexibleScroll({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          width: 100,
+          height: 100,
+          color: Colors.red,
+          margin: EdgeInsets.symmetric(vertical: 10),
+        ),
+        // Expanded도 가능
+        Flexible(
+          child: Container(
+            width: 100,
+            color: Colors.red,
+            margin: EdgeInsets.symmetric(vertical: 10),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                    width: 50,
+                    height: 50,
+                    color: Colors.blue,
+                    margin: EdgeInsets.symmetric(vertical: 5),
+                  ),
+                  Container(
+                    width: 50,
+                    height: 50,
+                    color: Colors.blue,
+                    margin: EdgeInsets.symmetric(vertical: 5),
+                  ),
+                  Container(
+                    width: 50,
+                    height: 50,
+                    color: Colors.blue,
+                    margin: EdgeInsets.symmetric(vertical: 5),
+                  ),
+                  Container(
+                    width: 50,
+                    height: 50,
+                    color: Colors.blue,
+                    margin: EdgeInsets.symmetric(vertical: 5),
+                  ),
+                  Container(
+                    width: 50,
+                    height: 50,
+                    color: Colors.blue,
+                    margin: EdgeInsets.symmetric(vertical: 5),
+                  ),
+                  Container(
+                    width: 50,
+                    height: 50,
+                    color: Colors.blue,
+                    margin: EdgeInsets.symmetric(vertical: 5),
+                  ),
+                  Container(
+                    width: 50,
+                    height: 50,
+                    color: Colors.blue,
+                    margin: EdgeInsets.symmetric(vertical: 5),
+                  ),
+                  Container(
+                    width: 50,
+                    height: 50,
+                    color: Colors.blue,
+                    margin: EdgeInsets.symmetric(vertical: 5),
+                  ),
+                  Container(
+                    width: 50,
+                    height: 50,
+                    color: Colors.blue,
+                    margin: EdgeInsets.symmetric(vertical: 5),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        Container(
+          width: 100,
+          height: 100,
+          color: Colors.red,
+          margin: EdgeInsets.symmetric(vertical: 10),
+        ),
+        Container(
+          width: 100,
+          height: 100,
+          color: Colors.red,
+          margin: EdgeInsets.symmetric(vertical: 10),
+        ),
+      ],
+    );
+  }
+}
+
+class Body extends StatelessWidget {
+  const Body({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
+}
+
