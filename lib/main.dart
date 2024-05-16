@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_example/style/theme.dart';
 
 const assetImagePath = 'assets/images';
 const bannerImage = '$assetImagePath/banner.png';
@@ -10,11 +11,14 @@ const bannerImage = '$assetImagePath/banner.png';
 void main() {
   runApp(MaterialApp(
     home: Scaffold(
+
       appBar: AppBar(
         title: Text("Study to Container"),
       ),
-      body: Body(),
+      body: Body(
+      ),
     ),
+    theme: customTheme,
   ));
 }
 
@@ -843,10 +847,24 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  int value = 0;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar:
+    final textTheme = Theme.of(context).textTheme;
+
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text("Count", style: textTheme.bodyLarge,),
+          Text("$value", style: textTheme.displayMedium,),
+          FloatingActionButton(
+              onPressed: (){
+                setState(() => value++);
+              },
+          child: Icon(Icons.add),)
+        ]
+      ),
     );
   }
 }
