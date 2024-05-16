@@ -823,6 +823,7 @@ class RandomWords extends StatelessWidget {
   }
 }
 
+// 이미지 에셋
 class ImageAsset extends StatelessWidget {
   const ImageAsset({super.key});
 
@@ -833,5 +834,22 @@ class ImageAsset extends StatelessWidget {
     );
   }
 }
+
+class Body extends StatefulWidget {
+  const Body({super.key});
+
+  @override
+  State<Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar:
+    );
+  }
+}
+
 
 
