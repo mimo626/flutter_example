@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 
+const assetImagePath = 'assets/images';
+const bannerImage = '$assetImagePath/banner.png';
+
 void main() {
   runApp(MaterialApp(
     home: Scaffold(
@@ -816,6 +819,17 @@ class RandomWords extends StatelessWidget {
     return Column(
       children:
         widgets,
+    );
+  }
+}
+
+class ImageAsset extends StatelessWidget {
+  const ImageAsset({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Image.asset(bannerImage),
     );
   }
 }
