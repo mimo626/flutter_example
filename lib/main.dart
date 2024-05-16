@@ -476,7 +476,7 @@ class _TestCheckBoxState extends State<TestCheckBox> {
   @override
   void initState() {
     super.initState();
-    values = [false, false, false];
+    values = [false, false, false, false, true];
   }
 
   @override
@@ -492,6 +492,12 @@ class _TestCheckBoxState extends State<TestCheckBox> {
         Checkbox(
             value: values[2],
             onChanged: (value) => changeValue(2, value: value)),
+        Checkbox(
+          value: values[3],
+          onChanged: (value) => changeValue(3, value: value),),
+        Checkbox(
+          value: values[4],
+          onChanged: (value) => changeValue(4, value: value),)
       ],
     );
   }
@@ -514,6 +520,7 @@ enum TestValue {
   test1,
   test2,
   test3,
+  test4,
 }
 class _TestRadioButtonState extends State<TestRadioButton> {
   TestValue? selectValue;
@@ -566,6 +573,24 @@ class _TestRadioButtonState extends State<TestRadioButton> {
               selectValue = TestValue.test3;
             }
           }),
+        ),
+        ListTile(
+          leading: Radio<TestValue>(
+            value: TestValue.test4,
+            groupValue: selectValue,
+            onChanged: (value) {
+              if(selectValue != TestValue.test4){
+                selectValue = TestValue.test4;
+              }
+            },
+          ),
+          title: Text(TestValue.test4.name),
+          onTap: () {setState(() {
+            if(selectValue != TestValue.test4){
+              selectValue = TestValue.test4;
+            }
+          });
+          },
         )
       ],
     );
@@ -581,6 +606,7 @@ class TextSlider extends StatefulWidget {
 }
 class _TextSliderState extends State<TextSlider> {
   double value = 0;
+  double value1 = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -596,6 +622,14 @@ class _TextSliderState extends State<TextSlider> {
           label: value.round().toString(),
           activeColor: Colors.green,
         ),
+        Slider(value: value1,
+          onChanged: (newValue) => setState(() => value1 = newValue),
+          divisions: 50,
+          max: 50,
+          min: 0,
+          label: value1.round().toString(),
+          activeColor: Colors.blue,
+        )
       ],
     );
   }
@@ -621,6 +655,11 @@ class _TestSwitchState extends State<TestSwitch> {
         CupertinoSwitch(
             value: value,
             onChanged: (newValue) => setState(() => value = newValue)),
+        Switch(
+            value: value,
+            onChanged: (newValue) => setState(() => value = newValue),
+            activeColor: Colors.yellow,
+        )
       ],
     );
   }
@@ -653,3 +692,4 @@ class _TestPopupMenuState extends State<TestPopupMenu> {
     );
   }
 }
+
