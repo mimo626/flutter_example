@@ -453,6 +453,14 @@ class _ExampleStatefulState extends State<ExampleStateful> {
   }
 }
 
+class Body extends StatelessWidget {
+  const Body({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
+}
 
 
 
