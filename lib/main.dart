@@ -342,6 +342,7 @@ class HomeWidget extends StatelessWidget {
     );
   }
 }
+
 class ConstraintsWidget extends StatelessWidget {
   const ConstraintsWidget({super.key});
 
@@ -383,6 +384,7 @@ class StateExample extends StatelessWidget {
     ]);
   }
 }
+
 class ExampleStateless extends StatelessWidget {
   const ExampleStateless({super.key});
 
@@ -396,6 +398,7 @@ class ExampleStateless extends StatelessWidget {
     );
   }
 }
+
 class ExampleStateful extends StatefulWidget {
   final int index;
 
@@ -404,6 +407,7 @@ class ExampleStateful extends StatefulWidget {
   @override
   State<ExampleStateful> createState() => _ExampleStatefulState();
 }
+
 class _ExampleStatefulState extends State<ExampleStateful> {
   late int _index;
   late TextEditingController textEditingController;
@@ -446,10 +450,9 @@ class _ExampleStatefulState extends State<ExampleStateful> {
   }
 }
 
-
 // 입력 요소들
-class Body extends StatelessWidget {
-  const Body({super.key});
+class InputItems extends StatelessWidget {
+  const InputItems({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -470,6 +473,7 @@ class TestCheckBox extends StatefulWidget {
   @override
   State<TestCheckBox> createState() => _TestCheckBoxState();
 }
+
 class _TestCheckBoxState extends State<TestCheckBox> {
   late List<bool> values;
 
@@ -494,10 +498,12 @@ class _TestCheckBoxState extends State<TestCheckBox> {
             onChanged: (value) => changeValue(2, value: value)),
         Checkbox(
           value: values[3],
-          onChanged: (value) => changeValue(3, value: value),),
+          onChanged: (value) => changeValue(3, value: value),
+        ),
         Checkbox(
           value: values[4],
-          onChanged: (value) => changeValue(4, value: value),)
+          onChanged: (value) => changeValue(4, value: value),
+        )
       ],
     );
   }
@@ -516,12 +522,14 @@ class TestRadioButton extends StatefulWidget {
   @override
   State<TestRadioButton> createState() => _TestRadioButtonState();
 }
+
 enum TestValue {
   test1,
   test2,
   test3,
   test4,
 }
+
 class _TestRadioButtonState extends State<TestRadioButton> {
   TestValue? selectValue;
 
@@ -579,17 +587,18 @@ class _TestRadioButtonState extends State<TestRadioButton> {
             value: TestValue.test4,
             groupValue: selectValue,
             onChanged: (value) {
-              if(selectValue != TestValue.test4){
+              if (selectValue != TestValue.test4) {
                 selectValue = TestValue.test4;
               }
             },
           ),
           title: Text(TestValue.test4.name),
-          onTap: () {setState(() {
-            if(selectValue != TestValue.test4){
-              selectValue = TestValue.test4;
-            }
-          });
+          onTap: () {
+            setState(() {
+              if (selectValue != TestValue.test4) {
+                selectValue = TestValue.test4;
+              }
+            });
           },
         )
       ],
@@ -604,6 +613,7 @@ class TextSlider extends StatefulWidget {
   @override
   State<TextSlider> createState() => _TextSliderState();
 }
+
 class _TextSliderState extends State<TextSlider> {
   double value = 0;
   double value1 = 0;
@@ -622,7 +632,8 @@ class _TextSliderState extends State<TextSlider> {
           label: value.round().toString(),
           activeColor: Colors.green,
         ),
-        Slider(value: value1,
+        Slider(
+          value: value1,
           onChanged: (newValue) => setState(() => value1 = newValue),
           divisions: 50,
           max: 50,
@@ -656,9 +667,9 @@ class _TestSwitchState extends State<TestSwitch> {
             value: value,
             onChanged: (newValue) => setState(() => value = newValue)),
         Switch(
-            value: value,
-            onChanged: (newValue) => setState(() => value = newValue),
-            activeColor: Colors.yellow,
+          value: value,
+          onChanged: (newValue) => setState(() => value = newValue),
+          activeColor: Colors.yellow,
         )
       ],
     );
@@ -680,16 +691,114 @@ class _TestPopupMenuState extends State<TestPopupMenu> {
     return Column(
       children: [
         Text(selectValue.name),
-        PopupMenuButton(itemBuilder: (context) {
+        PopupMenuButton(
+          itemBuilder: (context) {
             return TestValue.values
-                .map(
-                    (value) => PopupMenuItem(value: value, child: Text(value.name)))
+                .map((value) =>
+                    PopupMenuItem(value: value, child: Text(value.name)))
                 .toList();
           },
           onSelected: (newValue) => setState(() => selectValue = newValue),
         ),
       ],
     );
+  }
+}
+
+// 콜백 이벤트
+class Callback extends StatelessWidget {
+  const Callback({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return TestWidget();
+  }
+}
+class TestWidget extends StatefulWidget {
+  const TestWidget({super.key});
+
+  @override
+  State<TestWidget> createState() => _TestWidgetState();
+}
+class _TestWidgetState extends State<TestWidget> {
+  int value = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          "Count : $value",
+          style: const TextStyle(fontSize: 30),
+        ),
+        TestButton(addCounter, addCounter2),
+      ],
+    );
+  }
+
+  void addCounter(){
+    setState(() => ++value);
+  }
+
+  void addCounter2(int addValue) => setState(() => value += addValue);
+
+}
+class TestButton extends StatelessWidget {
+  const TestButton(this.callback, this.callback2, {super.key});
+
+  final VoidCallback callback;
+
+  final Function(int) callback2;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        margin: const EdgeInsets.symmetric(vertical: 8),
+        width: double.infinity,
+        child: Column(
+          children: [
+            InkWell(
+              onTap: () => callback.call(),
+              child: Center(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                    decoration: BoxDecoration(border: Border.all()),
+                    child: const Text(
+                      'Up Counter 1',
+                      style: TextStyle(fontSize: 24),
+                    ),
+                  ),
+              ),
+            ),
+            Padding(padding: EdgeInsets.symmetric(vertical: 8)),
+            InkWell(
+              onTap: () => callback2.call(5),
+              onDoubleTap: () => callback2.call(10),
+              onLongPress: () => callback2.call(20),
+              child: Center(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                  decoration: BoxDecoration(border: Border.all()),
+                  child: const Text(
+                    'Up Counter more',
+                    style: TextStyle(fontSize: 24),
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
+    );
+  }
+}
+
+class Body extends StatelessWidget {
+  const Body({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
   }
 }
 
