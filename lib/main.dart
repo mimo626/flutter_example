@@ -1,3 +1,4 @@
+import 'package:english_words/english_words.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -522,14 +523,12 @@ class TestRadioButton extends StatefulWidget {
   @override
   State<TestRadioButton> createState() => _TestRadioButtonState();
 }
-
 enum TestValue {
   test1,
   test2,
   test3,
   test4,
 }
-
 class _TestRadioButtonState extends State<TestRadioButton> {
   TestValue? selectValue;
 
@@ -793,12 +792,32 @@ class TestButton extends StatelessWidget {
   }
 }
 
-class Body extends StatelessWidget {
-  const Body({super.key});
+// 오픈소스 라이브러리
+class OpenSource extends StatelessWidget {
+  const OpenSource({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return RandomWords();
   }
 }
+class RandomWords extends StatelessWidget {
+  const RandomWords({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final wordList = generateWordPairs().take(5).toList();
+    final widgets = wordList
+        .map((word) => Text(
+      word.asString,
+      style: TextStyle(fontSize: 32),)
+    ).toList();
+
+    return Column(
+      children:
+        widgets,
+    );
+  }
+}
+
 
