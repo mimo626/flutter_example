@@ -305,9 +305,7 @@ class StackAlign extends StatelessWidget {
             width: 300,
             height: 300,
             decoration: BoxDecoration(
-                color: Colors.red,
-                borderRadius: BorderRadius.circular(150)
-            ),
+                color: Colors.red, borderRadius: BorderRadius.circular(150)),
           ),
         ),
         Align(
@@ -316,17 +314,14 @@ class StackAlign extends StatelessWidget {
             width: 280,
             height: 280,
             decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(140)
-            ),
+                color: Colors.white, borderRadius: BorderRadius.circular(140)),
           ),
         ),
         Align(
           alignment: Alignment.center,
           child: Text(
             "Count 0",
-            style: TextStyle(fontSize: 30,
-            color: Colors.red),
+            style: TextStyle(fontSize: 30, color: Colors.red),
           ),
         )
       ],
@@ -380,12 +375,12 @@ class StateExample extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ExampleStateless(),
-        ExampleStateful(index: 3,),
-      ]
-    );
+    return Column(children: [
+      ExampleStateless(),
+      ExampleStateful(
+        index: 3,
+      ),
+    ]);
   }
 }
 class ExampleStateless extends StatelessWidget {
@@ -403,6 +398,7 @@ class ExampleStateless extends StatelessWidget {
 }
 class ExampleStateful extends StatefulWidget {
   final int index;
+
   const ExampleStateful({required this.index, super.key});
 
   @override
@@ -416,9 +412,8 @@ class _ExampleStatefulState extends State<ExampleStateful> {
   void initState() {
     super.initState();
     _index = widget.index;
-   textEditingController = TextEditingController();
+    textEditingController = TextEditingController();
   }
-
 
   @override
   void dispose() {
@@ -426,16 +421,14 @@ class _ExampleStatefulState extends State<ExampleStateful> {
     super.dispose();
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Expanded(
       flex: 1,
       child: GestureDetector(
-        onTap: (){
+        onTap: () {
           setState(() {
-            if(_index == 5){
+            if (_index == 5) {
               _index = 0;
               return;
             }
@@ -443,7 +436,7 @@ class _ExampleStatefulState extends State<ExampleStateful> {
           });
         },
         child: Container(
-          color: Colors.blue.withOpacity(_index/5),
+          color: Colors.blue.withOpacity(_index / 5),
           child: Center(
             child: Text('$_index'),
           ),
@@ -453,15 +446,210 @@ class _ExampleStatefulState extends State<ExampleStateful> {
   }
 }
 
+
+// 입력 요소들
 class Body extends StatelessWidget {
   const Body({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return const Column(children: [
+      TestCheckBox(),
+      TestRadioButton(),
+      TextSlider(),
+      TestSwitch(),
+      TestPopupMenu(),
+    ]);
   }
 }
 
+// 체크 박스
+class TestCheckBox extends StatefulWidget {
+  const TestCheckBox({super.key});
 
+  @override
+  State<TestCheckBox> createState() => _TestCheckBoxState();
+}
+class _TestCheckBoxState extends State<TestCheckBox> {
+  late List<bool> values;
 
+  @override
+  void initState() {
+    super.initState();
+    values = [false, false, false];
+  }
 
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Checkbox(
+            value: values[0],
+            onChanged: (value) => changeValue(0, value: value)),
+        Checkbox(
+            value: values[1],
+            onChanged: (value) => changeValue(1, value: value)),
+        Checkbox(
+            value: values[2],
+            onChanged: (value) => changeValue(2, value: value)),
+      ],
+    );
+  }
+
+  void changeValue(int index, {bool? value = false}) {
+    setState(() {
+      values[index] = value!;
+    });
+  }
+}
+
+// 라디오 버튼
+class TestRadioButton extends StatefulWidget {
+  const TestRadioButton({super.key});
+
+  @override
+  State<TestRadioButton> createState() => _TestRadioButtonState();
+}
+enum TestValue {
+  test1,
+  test2,
+  test3,
+}
+class _TestRadioButtonState extends State<TestRadioButton> {
+  TestValue? selectValue;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        ListTile(
+          leading: Radio<TestValue>(
+            value: TestValue.test1,
+            groupValue: selectValue,
+            onChanged: (value) => setState(
+              () => selectValue = value!,
+            ),
+          ),
+          title: Text(TestValue.test1.name),
+          onTap: () => setState(() {
+            if (selectValue != TestValue.test1) {
+              selectValue = TestValue.test1;
+            }
+          }),
+        ),
+        ListTile(
+          leading: Radio<TestValue>(
+            value: TestValue.test2,
+            groupValue: selectValue,
+            onChanged: (value) => setState(
+              () => selectValue = value!,
+            ),
+          ),
+          title: Text(TestValue.test1.name),
+          onTap: () => setState(() {
+            if (selectValue != TestValue.test2) {
+              selectValue = TestValue.test2;
+            }
+          }),
+        ),
+        ListTile(
+          leading: Radio<TestValue>(
+            value: TestValue.test3,
+            groupValue: selectValue,
+            onChanged: (value) => setState(
+              () => selectValue = value!,
+            ),
+          ),
+          title: Text(TestValue.test3.name),
+          onTap: () => setState(() {
+            if (selectValue != TestValue.test3) {
+              selectValue = TestValue.test3;
+            }
+          }),
+        )
+      ],
+    );
+  }
+}
+
+// 슬라이더
+class TextSlider extends StatefulWidget {
+  const TextSlider({super.key});
+
+  @override
+  State<TextSlider> createState() => _TextSliderState();
+}
+class _TextSliderState extends State<TextSlider> {
+  double value = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text('${value.round()}'),
+        Slider(
+          value: value,
+          onChanged: (newValue) => setState(() => value = newValue),
+          divisions: 100,
+          max: 100,
+          min: 0,
+          label: value.round().toString(),
+          activeColor: Colors.green,
+        ),
+      ],
+    );
+  }
+}
+
+// 스위치
+class TestSwitch extends StatefulWidget {
+  const TestSwitch({super.key});
+
+  @override
+  State<TestSwitch> createState() => _TestSwitchState();
+}
+class _TestSwitchState extends State<TestSwitch> {
+  bool value = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Switch(
+            value: value,
+            onChanged: (newValue) => setState(() => value = newValue)),
+        CupertinoSwitch(
+            value: value,
+            onChanged: (newValue) => setState(() => value = newValue)),
+      ],
+    );
+  }
+}
+
+// 팝업 메뉴
+class TestPopupMenu extends StatefulWidget {
+  const TestPopupMenu({super.key});
+
+  @override
+  State<TestPopupMenu> createState() => _TestPopupMenuState();
+}
+class _TestPopupMenuState extends State<TestPopupMenu> {
+  TestValue selectValue = TestValue.test1;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(selectValue.name),
+        PopupMenuButton(itemBuilder: (context) {
+            return TestValue.values
+                .map(
+                    (value) => PopupMenuItem(value: value, child: Text(value.name)))
+                .toList();
+          },
+          onSelected: (newValue) => setState(() => selectValue = newValue),
+        ),
+      ],
+    );
+  }
+}
